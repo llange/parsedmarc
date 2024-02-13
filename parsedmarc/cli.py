@@ -1251,6 +1251,7 @@ def _main():
                 max_retries=opts.imap_max_retries,
                 user=opts.imap_user,
                 password=opts.imap_password,
+                initial_folder=opts.mailbox_reports_folder,
             )
 
         except Exception:

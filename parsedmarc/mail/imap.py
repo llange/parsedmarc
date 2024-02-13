@@ -17,14 +17,16 @@ class IMAPConnection(MailboxConnection):
                  ssl=True,
                  verify=True,
                  timeout=30,
-                 max_retries=4):
+                 max_retries=4,
+                 initial_folder=None):
         self._username = user
         self._password = password
         self._verify = verify
         self._client = IMAPClient(host, user, password, port=port,
                                   ssl=ssl, verify=verify,
                                   timeout=timeout,
-                                  max_retries=max_retries)
+                                  max_retries=max_retries,
+                                  initial_folder=initial_folder)
 
     def create_folder(self, folder_name: str):
         self._client.create_folder(folder_name)
