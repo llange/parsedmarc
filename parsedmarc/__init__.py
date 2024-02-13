@@ -1559,7 +1559,8 @@ def get_dmarc_reports_from_mailbox(connection: MailboxConnection,
             strip_attachment_payloads=strip_attachment_payloads,
             results=results,
             ip_db_path=ip_db_path,
-            offline=offline
+            offline=offline,
+            create_folders=create_folders
         )
 
     return results

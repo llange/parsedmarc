@@ -404,6 +404,7 @@ def _main():
                      mailbox_test=False,
                      mailbox_batch_size=10,
                      mailbox_check_timeout=30,
+                     mailbox_create_folders=True,
                      imap_host=None,
                      imap_skip_certificate_verification=False,
                      imap_ssl=True,
@@ -585,6 +586,8 @@ def _main():
             if "check_timeout" in mailbox_config:
                 opts.mailbox_check_timeout = mailbox_config.getint(
                     "check_timeout")
+            if "create_folders" in mailbox_config:
+                opts.mailbox_create_folders = mailbox_config.getboolean("create_folders")
 
         if "imap" in config.sections():
             imap_config = config["imap"]
@@ -1314,6 +1317,7 @@ def _main():
                 nameservers=opts.nameservers,
                 test=opts.mailbox_test,
                 strip_attachment_payloads=opts.strip_attachment_payloads,
+                create_folders=opts.mailbox_create_folders,
             )
 
             aggregate_reports += reports["aggregate_reports"]
