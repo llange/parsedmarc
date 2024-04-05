@@ -59,8 +59,11 @@ class IMAPConnection(MailboxConnection):
             self._client = client
             check_callback(self)
 
-        while True:
+        count = 0
+
+        while count < 10:
             try:
+                count += 1
                 IMAPClient(host=self._client.host,
                            username=self._username,
                            password=self._password,
@@ -69,10 +72,11 @@ class IMAPConnection(MailboxConnection):
                            verify=self._verify,
                            idle_callback=idle_callback_wrapper,
                            idle_timeout=check_timeout)
+
             except (timeout, IMAPClientError):
-                logger.warning("IMAP connection timeout. Reconnecting...")
+                logger.warning("IMAP connection timeout. Reconnecting... ({0} try)".format(count))
                 sleep(check_timeout)
             except Exception as e:
                 logger.warning("IMAP connection error. {0}. "
-                               "Reconnecting...".format(e))
+                               "Reconnecting... ({1} try)".format(e, count))
                 sleep(check_timeout)
